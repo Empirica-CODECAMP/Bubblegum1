@@ -26,6 +26,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', home_page, name='home')
     path('', include('file_manager.urls')),    
+    path('health-index/', include('health_index.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    
+    
+    
+admin.site.site_header = 'BUBBLEGUM'
+admin.site.site_title = 'BUBBLEGUM'
+admin.site.index_title = 'BUBBLEGUM admin'  
