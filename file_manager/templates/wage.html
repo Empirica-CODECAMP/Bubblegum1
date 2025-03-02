@@ -1,0 +1,145 @@
+
+{% extends 'base2.html' %}
+
+{% block title %}Survey Results - Minimum Wage in Botswana - Bubblegum1{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Results - Minimum Wage in Botswana</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #ddd;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .chart-container {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #444;
+            border-radius: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .chart-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.2);
+        }
+        canvas {
+            max-width: 80%;
+            height: 250px !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Survey Results: Minimum Wage & Health Insurance in Botswana</h1>
+
+        <div class="chart-container"><h3>1. What is your age group?</h3><canvas id="ageGroupChart"></canvas></div>
+        <div class="chart-container"><h3>2. What is your gender?</h3><canvas id="genderChart"></canvas></div>
+        <div class="chart-container"><h3>3. How would an increase in the minimum wage impact the economy?</h3><canvas id="wageImpactChart"></canvas></div>
+        <div class="chart-container"><h3>4. What would you consider a fair minimum wage?</h3><canvas id="fairWageChart"></canvas></div>
+        <div class="chart-container"><h3>5. Main barriers preventing salary increases?</h3><canvas id="salaryBarriersChart"></canvas></div>
+        <div class="chart-container"><h3>6. Can companies afford a 4,000 BWP minimum wage?</h3><canvas id="affordWageChart"></canvas></div>
+        <div class="chart-container"><h3>7. Would people be satisfied with a 4,000 BWP minimum wage?</h3><canvas id="satisfactionChart"></canvas></div>
+        <div class="chart-container"><h3>8. How should the minimum wage be implemented?</h3><canvas id="implementationChart"></canvas></div>
+        <div class="chart-container"><h3>9. Should the minimum wage be tied to worker productivity/skills?</h3><canvas id="productivityChart"></canvas></div>
+        <div class="chart-container"><h3>10. Does the minimum wage consider dependents/family size?</h3><canvas id="dependentsChart"></canvas></div>
+        <div class="chart-container"><h3>11. Do employers comply with minimum wage regulations?</h3><canvas id="complianceChart"></canvas></div>
+        <div class="chart-container"><h3>12. Should the minimum wage vary by location (urban vs rural)?</h3><canvas id="locationChart"></canvas></div>
+        <div class="chart-container"><h3>13. How does the minimum wage affect your standard of living?</h3><canvas id="standardLivingChart"></canvas></div>
+        <div class="chart-container"><h3>14. Which sector is most affected by minimum wage policies?</h3><canvas id="affectedSectorsChart"></canvas></div>
+        <div class="chart-container"><h3>15. Should the minimum wage include additional benefits (e.g., funeral cover, insurance)?</h3><canvas id="benefitsChart"></canvas></div>
+
+    </div>
+
+    <script>
+        function createChart(id, type, labels, data, colors) {
+            new Chart(document.getElementById(id), {
+                type: type,
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: colors,
+                        borderColor: "#ccc",
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: "#ddd" // Legend text color
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: "#ddd"
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: "#ddd"
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Define monochrome color shades
+        const monochromeColors = ['#555', '#777', '#999', '#bbb', '#ddd'];
+
+        // Generate charts
+        createChart('ageGroupChart', 'pie', ['Under 18', '18-30', '31-50', '51-70'], [10, 71, 12, 6], monochromeColors);
+        createChart('genderChart', 'pie', ['Female', 'Male', 'Prefer not to say'], [58, 40, 2], monochromeColors);
+        createChart('wageImpactChart', 'pie', ['Inflation & job losses', 'Boost spending', 'Minimal impact', 'None'], [54, 39, 5, 2], monochromeColors);
+        createChart('fairWageChart', 'pie', ['<2,500 BWP', '2,500-3,500 BWP', '3,500-5,000 BWP', '>5,000 BWP'], [16, 57, 23, 4], monochromeColors);
+        createChart('salaryBarriersChart', 'bar', ['Limited Growth', 'Unemployment', 'Employer Resistance', 'Budget Constraints', 'Lack of Advocacy'], [69, 19, 19, 72, 21], monochromeColors);
+        createChart('affordWageChart', 'pie', ['Yes', 'No', 'Not sure'], [29, 56, 15], monochromeColors);
+        createChart('satisfactionChart', 'pie', ['Satisfied', 'Will ask for more', 'Not sure'], [25, 69, 7], monochromeColors);
+        createChart('implementationChart', 'pie', ['One-time', 'Over 5 years', 'Over 10 years'], [14, 47, 29], monochromeColors);
+
+        // Other charts
+        const dataSets = {
+            productivityChart: [80, 9, 11],
+            dependentsChart: [3, 78, 19],
+            complianceChart: [55, 23, 13, 9],
+            locationChart: [17, 77, 6],
+            standardLivingChart: [8, 70, 22],
+            affectedSectorsChart: [2, 59, 5, 31, 3],
+            benefitsChart: [30, 54, 16]
+        };
+
+        Object.keys(dataSets).forEach(id => {
+            createChart(id, 'pie', ['Yes', 'No', 'Not sure'], dataSets[id], monochromeColors);
+        });
+
+    </script>
+
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,164 @@
+{% extends 'base2.html' %}
+
+{% block title %}Medical Inflation Trends - Bubblegum1{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Group Distribution</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #121212;
+            color: #E0E0E0;
+            text-align: center;
+        }
+        h1, h2 {
+            color: #ffffff;
+        }
+        .chart-container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: #1E1E1E;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: #1E1E1E;
+            border: 1px solid #444;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #444;
+        }
+        th {
+            background-color: #333;
+            color: #E0E0E0;
+        }
+        tr:nth-child(even) {
+            background-color: #2A2A2A;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Age Group Distribution</h1>
+
+    <!-- Chart Container -->
+    <div class="chart-container">
+        <canvas id="ageChart"></canvas>
+    </div>
+
+    <!-- Data Table -->
+    <h2>Age Distribution Data</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Age Group</th>
+                <th>Males (%)</th>
+                <th>Females (%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row.age_group }}</td>
+                <td>{{ row.males_percent }}%</td>
+                <td>{{ row.females_percent }}%</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        const ageGroups = [
+            {% for row in data %}
+                "{{ row.age_group }}"{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        const malePercent = [
+            {% for row in data %}
+                {{ row.males_percent }}{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        const femalePercent = [
+            {% for row in data %}
+                {{ row.females_percent }}{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        const ageChartConfig = {
+            type: 'line',
+            data: {
+                labels: ageGroups,
+                datasets: [
+                    {
+                        label: 'Males (%)',
+                        data: malePercent,
+                        borderColor: 'rgba(200, 200, 200, 1)',
+                        backgroundColor: 'rgba(200, 200, 200, 0.2)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        pointBackgroundColor: '#E0E0E0',
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'Females (%)',
+                        data: femalePercent,
+                        borderColor: 'rgba(150, 150, 150, 1)',
+                        backgroundColor: 'rgba(150, 150, 150, 0.2)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        pointBackgroundColor: '#B0B0B0',
+                        pointRadius: 5
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: '#444'
+                        },
+                        ticks: {
+                            color: '#E0E0E0'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: '#444'
+                        },
+                        ticks: {
+                            color: '#E0E0E0'
+                        }
+                    }
+                }
+            }
+        };
+
+        const ageChart = new Chart(
+            document.getElementById('ageChart'),
+            ageChartConfig
+        );
+    </script>
+
+</body>
+</html>
+{% endblock %}

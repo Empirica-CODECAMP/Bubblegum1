@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubblegum1</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom Monochrome Styles */
+        body {
+            background-color: #e6e6e6;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+        .header {
+            background-color: #222;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 250px;
+            background-color: #333;
+            padding-top: 20px;
+            padding-right: 20px;
+        }
+        .sidebar a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            padding: 12px 20px;
+            margin: 8px 0;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .sidebar a:hover {
+            background-color: #555;
+            color: #fff;
+        }
+        .dropdown-menu {
+            background-color: #444;
+            border: none;
+        }
+        .dropdown-item {
+            color: #ccc;
+        }
+        .dropdown-item:hover {
+            background-color: #666;
+            color: white;
+        }
+        /* Content Styles */
+        .content {
+            margin-left: 270px;
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+        }
+        .content h2 {
+            color: #444;
+        }
+        .feedback-section {
+            margin-top: 40px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background-color: #444;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #222;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 10px 0;
+            color: #555;
+            font-size: 14px;
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h4 class="text-white text-center mb-4">Menu</h4>
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+        <a href="{% url 'inflation_list' %}">Inflation</a>  
+        <a href="{% url 'file_list' %}">Files</a>  
+        <a href="{% url 'excel_files_list' %}">Excel Files</a>  
+
+        <!-- New Sections -->
+        <a href="{% url 'alcohol_consumption' %}">Alcohol Consumption</a>
+        <a href="{% url 'medical_inflation' %}">Medical Aid Inflation</a>
+        <a href="{% url 'age_group_analysis' %}">Age Group Analysis</a>
+
+        <div class="dropdown">
+            <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">National Health Insurance</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'nhi_survey' %}">Survey</a></li>
+                <li><a class="dropdown-item" href="{% url 'nhi_summary' %}">Summary</a></li>
+            </ul>
+        </div>
+
+        <div class="dropdown">
+            <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Minimum Wage</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'wagesurvey' %}">Survey</a></li>
+                <li><a class="dropdown-item" href="{% url 'wagesummary' %}">Summary</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <h1>Bubblegum1</h1>
+    </header>
+
+    <!-- Content Section -->
+    <div class="content">
+        <!-- Welcome Section -->
+        <section class="welcome-section container">
+            <h2>Welcome to Bubblegum1</h2>
+            <p>Explore in-depth insights and analysis on key economic issues like minimum wage and healthcare. Bubblegum1 provides you with the latest statistics, research, and trends to help you stay informed and make better decisions. Browse through our collection of resources and dive into the data that matters most to you!</p>
+        </section>
+
+        <!-- Feedback Section -->
+        <section class="feedback-section container">
+            <h3>We Value Your Feedback!</h3>
+            <p>Let us know your thoughts.</p>
+            {% comment %} <form action="{% url 'feedback' %}" method="POST"> {% endcomment %}
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="feedback" class="form-label">Your Feedback</label>
+                    <textarea name="feedback" id="feedback" class="form-control" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Feedback</button>
+            </form>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2025 Bubblegum1. All rights reserved.
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

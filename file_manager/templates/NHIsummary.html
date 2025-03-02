@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %}Survey Results - Bubblegum1{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Survey Results - Botswana</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #efefef;
+            color: #111;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .chart-container {
+            width: 400px;
+            height: 400px;
+            display: inline-block;
+            margin: 10px;
+            padding: 10px;
+            background: #ddd;
+            border-radius: 8px;
+        }
+        canvas {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Healthcare Survey Results - Botswana</h1>
+
+        <div class="chart-container"><h3>Age Group</h3><canvas id="ageGroupChart"></canvas></div>
+        <div class="chart-container"><h3>Gender</h3><canvas id="genderChart"></canvas></div>
+        <div class="chart-container"><h3>Location</h3><canvas id="locationChart"></canvas></div>
+        <div class="chart-container"><h3>Satisfaction with Healthcare</h3><canvas id="satisfactionChart"></canvas></div>
+        <div class="chart-container"><h3>Public Healthcare Visits</h3><canvas id="visitFrequencyChart"></canvas></div>
+        <div class="chart-container"><h3>Quality of Public Care</h3><canvas id="careQualityChart"></canvas></div>
+        <div class="chart-container"><h3>Ease of Access</h3><canvas id="accessibilityChart"></canvas></div>
+        <div class="chart-container"><h3>Waiting Time</h3><canvas id="waitingTimeChart"></canvas></div>
+        <div class="chart-container"><h3>Availability of Professionals</h3><canvas id="healthcareAvailabilityChart"></canvas></div>
+        <div class="chart-container"><h3>Essential Medicines</h3><canvas id="medicineAvailabilityChart"></canvas></div>
+        <div class="chart-container"><h3>Cleanliness</h3><canvas id="cleanlinessChart"></canvas></div>
+        <div class="chart-container"><h3>Respect from Workers</h3><canvas id="respectChart"></canvas></div>
+        <div class="chart-container"><h3>Concerns Addressed</h3><canvas id="concernsChart"></canvas></div>
+        <div class="chart-container"><h3>Follow-Up Care</h3><canvas id="followUpChart"></canvas></div>
+    </div>
+
+    </div>
+
+    <script>
+        // Monochrome grayscale colors
+        const grayscaleColors = ['#111', '#333', '#555', '#777', '#999'];
+
+        // Pie Charts
+        const pieData = {
+            ageGroupChart: { labels: ['Under 18', '18-30', '31-50', '51-70', 'Over 70'], data: [10, 71, 13, 6, 0] },
+            genderChart: { labels: ['Male', 'Female', 'Prefer not to say'], data: [37, 59, 4] },
+            locationChart: { labels: ['Urban', 'Semi-urban', 'Rural'], data: [71, 19, 16] },
+            satisfactionChart: { labels: ['Very satisfied', 'Satisfied', 'Neutral', 'Dissatisfied', 'Very dissatisfied'], data: [12, 22, 44, 19, 3] },
+            careQualityChart: { labels: ['Excellent', 'Good', 'Average', 'Poor', 'Very poor'], data: [4, 15, 43, 19, 19] },
+            healthcareAvailabilityChart: { labels: ['More than enough', 'Sufficient', 'Neutral', 'Insufficient', 'Very inadequate'], data: [3, 23, 21, 45, 8] },
+            medicineAvailabilityChart: { labels: ['Always', 'Often', 'Sometimes', 'Rarely', 'Never'], data: [17, 17, 18, 43, 5] },
+            cleanlinessChart: { labels: ['Excellent', 'Good', 'Average', 'Poor', 'Very poor'], data: [29, 32, 27, 10, 2] },
+            respectChart: { labels: ['Always', 'Often', 'Sometimes', 'Rarely', 'Never'], data: [7, 24, 31, 24, 14] },
+            concernsChart: { labels: ['Always', 'Often', 'Sometimes', 'Rarely', 'Never'], data: [10, 21, 44, 15, 10] },
+            followUpChart: { labels: ['Excellent', 'Good', 'Neutral', 'Poor', 'Very poor'], data: [13, 26, 44, 17, 6] }
+        };
+
+        Object.keys(pieData).forEach(id => {
+            new Chart(document.getElementById(id), {
+                type: 'pie',
+                data: {
+                    labels: pieData[id].labels,
+                    datasets: [{
+                        data: pieData[id].data,
+                        backgroundColor: grayscaleColors
+                    }]
+                }
+            });
+        });
+
+        // Bar Charts
+        const barData = {
+            visitFrequencyChart: { labels: ['More than once a month', 'Monthly', 'A few times a year', 'Rarely', 'Never'], data: [12, 22, 44, 19, 3] },
+            accessibilityChart: { labels: ['Very easy', 'Easy', 'Neutral', 'Difficult', 'Very difficult'], data: [32, 27, 22, 16, 3] },
+            waitingTimeChart: { labels: ['<30 min', '30-60 min', '1-2 hours', '>2 hours', 'Don’t use public facilities'], data: [10, 32, 25, 30, 3] }
+        };
+
+        Object.keys(barData).forEach(id => {
+            new Chart(document.getElementById(id), {
+                type: 'bar',
+                data: {
+                    labels: barData[id].labels,
+                    datasets: [{
+                        label: 'Responses (%)',
+                        data: barData[id].data,
+                        backgroundColor: grayscaleColors
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        });
+        
+    </script>
+
+</body>
+</html>
+{% endblock %}

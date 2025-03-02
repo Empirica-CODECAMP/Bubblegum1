@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Survey</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+
+        /* Back Button Styles */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #0056b3;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #003366;
+        }
+
+        form {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-left: 4px solid #0056b3;
+            background: #f9f9ff;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .question:hover {
+            background: #e6f0ff;
+            transform: scale(1.02);
+        }
+
+        .question label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #003366;
+        }
+
+        .options {
+            margin-left: 10px;
+        }
+
+        .options input {
+            margin-right: 8px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 80px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 8px;
+            font-size: 14px;
+            resize: none;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #0056b3;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #003366;
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <a href="{% url 'dashboard' %}" class="back-button">Back to Dashboard</a>
+
+    <h1>Healthcare Survey</h1>
+    <form action="#" method="post">
+        <div class="question">
+            <label>1. What is your age group?</label>
+            <div class="options">
+                <input type="radio" name="age" value="under18"> Under 18<br>
+                <input type="radio" name="age" value="18-30"> 18-30<br>
+                <input type="radio" name="age" value="31-50"> 31-50<br>
+                <input type="radio" name="age" value="51-70"> 51-70<br>
+                <input type="radio" name="age" value="over70"> Over 70<br>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>2. What is your gender?</label>
+            <div class="options">
+                <input type="radio" name="gender" value="male"> Male<br>
+                <input type="radio" name="gender" value="female"> Female<br>
+                <input type="radio" name="gender" value="preferNotToSay"> Prefer not to say<br>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>3. Where do you live?</label>
+            <div class="options">
+                <input type="radio" name="location" value="urban"> Urban area<br>
+                <input type="radio" name="location" value="semiUrban"> Semi-urban area<br>
+                <input type="radio" name="location" value="rural"> Rural area<br>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>4. How satisfied are you with healthcare services?</label>
+            <div class="options">
+                <input type="radio" name="satisfaction" value="verySatisfied"> Very satisfied<br>
+                <input type="radio" name="satisfaction" value="satisfied"> Satisfied<br>
+                <input type="radio" name="satisfaction" value="neutral"> Neutral<br>
+                <input type="radio" name="satisfaction" value="dissatisfied"> Dissatisfied<br>
+                <input type="radio" name="satisfaction" value="veryDissatisfied"> Very dissatisfied<br>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>5. How long do you typically wait to see a doctor?</label>
+            <div class="options">
+                <input type="radio" name="waitTime" value="lessThan30Minutes"> Less than 30 minutes<br>
+                <input type="radio" name="waitTime" value="30-60Minutes"> 30-60 minutes<br>
+                <input type="radio" name="waitTime" value="1-2Hours"> 1-2 hours<br>
+                <input type="radio" name="waitTime" value="moreThan2Hours"> More than 2 hours<br>
+                <input type="radio" name="waitTime" value="dontUsePublic"> I don’t use public healthcare<br>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>6. What is the most pressing healthcare issue?</label>
+            <div class="options">
+                <input type="radio" name="pressingIssue" value="longWaitingTimes"> Long waiting times<br>
+                <input type="radio" name="pressingIssue" value="shortageOfProfessionals"> Shortage of professionals<br>
+                <input type="radio" name="pressingIssue" value="poorInfrastructure"> Poor infrastructure<br>
+                <input type="radio" name="pressingIssue" value="lackOfMedicines"> Lack of medicines<br>
+                <input type="radio" name="pressingIssue" value="other"> Other (please specify)<br>
+                <textarea name="pressingIssueOther" placeholder="Please specify"></textarea>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>7. What improvements would you suggest?</label>
+            <textarea name="improvements" placeholder="Your suggestions here..."></textarea>
+        </div>
+
+        <div class="question">
+            <label>8. Any additional comments?</label>
+            <textarea name="additionalComments" placeholder="Your comments here..."></textarea>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

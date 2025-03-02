@@ -1,0 +1,190 @@
+{% extends 'base2.html' %}
+
+{% block title %}Medical Inflation Trends - Bubblegum1{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Inflation Trends</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #121212;
+            color: #E0E0E0;
+            text-align: center;
+        }
+        h1, h2 {
+            color: #ffffff;
+        }
+        .chart-container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: #1E1E1E;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: #1E1E1E;
+            border: 1px solid #444;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #444;
+        }
+        th {
+            background-color: #333;
+            color: #E0E0E0;
+        }
+        tr:nth-child(even) {
+            background-color: #2A2A2A;
+        }
+        .forecast {
+            background-color: #444 !important;
+            color: #FFCC00;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Medical Inflation vs. Inflation Percentage (2014 - 2033)</h1>
+
+    <!-- Chart Container -->
+    <div class="chart-container">
+        <canvas id="inflationChart"></canvas>
+    </div>
+
+    <!-- Data Table -->
+    <h2>Inflation Data Table</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Medical Inflation (%)</th>
+                <th>Inflation Percentage (%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in data %}
+            <tr {% if entry.year >= 2025 %}class="forecast"{% endif %}>
+                <td>{{ entry.year }}</td>
+                <td>{{ entry.medical_inflation }}%</td>
+                <td>{{ entry.inflation_percentage }}%</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        const years = [
+            {% for entry in data %}
+                "{{ entry.year }}"{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        const medicalInflation = [
+            {% for entry in data %}
+                {{ entry.medical_inflation }}{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        const inflationPercentage = [
+            {% for entry in data %}
+                {{ entry.inflation_percentage }}{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        const forecastStartIndex = years.indexOf("2025");
+
+        const inflationChartConfig = {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: [
+                    {
+                        label: 'Medical Inflation (%)',
+                        data: medicalInflation,
+                        borderColor: 'rgba(200, 200, 200, 1)',
+                        backgroundColor: 'rgba(200, 200, 200, 0.2)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        pointBackgroundColor: years.map((_, index) => index >= forecastStartIndex ? '#FFCC00' : '#E0E0E0'),
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'Inflation Percentage (%)',
+                        data: inflationPercentage,
+                        borderColor: 'rgba(150, 150, 150, 1)',
+                        backgroundColor: 'rgba(150, 150, 150, 0.2)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        pointBackgroundColor: years.map((_, index) => index >= forecastStartIndex ? '#FFCC00' : '#B0B0B0'),
+                        pointRadius: 5
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: '#444'
+                        },
+                        ticks: {
+                            color: '#E0E0E0'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: '#444'
+                        },
+                        ticks: {
+                            color: '#E0E0E0'
+                        }
+                    }
+                },
+                plugins: {
+                    annotation: {
+                        annotations: {
+                            line1: {
+                                type: 'line',
+                                xMin: forecastStartIndex - 0.5,
+                                xMax: forecastStartIndex - 0.5,
+                                borderColor: '#FFCC00',
+                                borderWidth: 2,
+                                label: {
+                                    content: 'Forecast Start (2025)',
+                                    enabled: true,
+                                    position: 'end',
+                                    backgroundColor: '#FFCC00',
+                                    color: '#000'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        const inflationChart = new Chart(
+            document.getElementById('inflationChart'),
+            inflationChartConfig
+        );
+    </script>
+
+</body>
+</html>
+{%endblock%}

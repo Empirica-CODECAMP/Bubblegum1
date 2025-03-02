@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Survey Results - Botswana</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #efefef;
+            color: #111;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .chart-container {
+            width: 100%;
+            height: 500px;
+            margin: 20px 0;
+            padding: 20px;
+            background: #ddd;
+            border-radius: 8px;
+        }
+        canvas {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Healthcare Survey Results - Botswana</h1>
+
+        <!-- Multi-Bar Chart for All Healthcare Metrics -->
+        <div class="chart-container">
+            <h3>Healthcare Metrics Over Years (2026–2030)</h3>
+            <canvas id="healthcareMetricsChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Data from the Excel file
+        const years = [2026, 2027, 2028, 2029, 2030];
+        const healthcareData = {
+            nurses: [9480, 10110, 10740, 11370, 12000],
+            doctors: [1188, 1291, 1394, 1497, 1600],
+            hospitalBeds: [8451, 8838.25, 9225.5, 9612.75, 10000],
+            clinics: [402, 426.5, 451, 475.5, 500],
+            hospitals: [36, 36, 36, 36, 36],
+            mobileClinics: [1289, 1366.75, 1444.5, 1522.25, 1600],
+            healthPosts: [394, 420.5, 447, 473.5, 500],
+            infantMortality: [34.1, 32.325, 30.55, 28.775, 27],
+            lifeExpectancy: [65.3, 66.975, 68.65, 70.325, 72],
+            tbIncidence: [155, 161.25, 167.5, 173.75, 180],
+            outpatientVisits: [6285121, 6463840.75, 6642560.5, 6821280.25, 7000000],
+            maternalMortality: [149, 141.75, 134.5, 127.25, 120],
+            malariaIncidence: [-36.93, -40.1975, -43.465, -46.7325, -50],
+            inpatientAdmissions: [277193, 295394.75, 313596.5, 331798.25, 350000],
+            perCapitaExpenditure: [503.53, 565.1475, 626.765, 688.3825, 750]
+        };
+
+        // Colors for each dataset
+        const colors = [
+            '#111', '#333', '#555', '#777', '#999',
+            '#aaa', '#bbb', '#ccc', '#ddd', '#eee',
+            '#ff6b6b', '#4ecdc4', '#1a535c', '#ff6b6b', '#4ecdc4'
+        ];
+
+        // Create datasets for the chart
+        const datasets = Object.keys(healthcareData).map((key, index) => ({
+            label: key.replace(/([A-Z])/g, ' $1').toUpperCase(), // Format label (e.g., "hospitalBeds" -> "Hospital Beds")
+            data: healthcareData[key],
+            backgroundColor: colors[index],
+            borderColor: colors[index],
+            borderWidth: 1
+        }));
+
+        // Multi-Bar Chart Configuration
+        new Chart(document.getElementById('healthcareMetricsChart'), {
+            type: 'bar',
+            data: {
+                labels: years,
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Value'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Year'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => {
+                                const label = context.dataset.label || '';
+                                const value = context.raw || 0;
+                                return `${label}: ${value}`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

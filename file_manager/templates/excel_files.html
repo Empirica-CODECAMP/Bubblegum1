@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Excel Files - Bubblegum1{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Uploaded Excel Files</title>
+</head>
+<body style="background-color: #f2f2f2; color: #333; font-family: Arial, sans-serif;">
+    <h1 style="text-align: center;">Uploaded Excel Files</h1>
+    <ul style="list-style: none; padding: 0;">
+        {% for file in excel_files %}
+            <li style="background: white; padding: 10px; margin: 10px; border-radius: 5px;">
+                <strong>{{ file.name }}</strong> - {{ file.description }}
+                <br>
+                <a href="{{ file.file.url }}" target="_blank" style="color: blue; text-decoration: none;">Preview</a> |
+                <a href="{{ file.file.url }}" download style="color: green; text-decoration: none;">Download</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block title %}Survey Results - Bubblegum1{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Results</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Minimalist Theme */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        canvas {
+            max-width: 100%;
+        }
+        .chart-container {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Survey Results: Minimum Wage & Health Insurance in Botswana</h1>
+
+        <!-- Question 1: Age Group -->
+        <div class="chart-container">
+            <h3>1. What is your age group?</h3>
+            <canvas id="ageGroupChart"></canvas>
+        </div>
+
+        <!-- Question 2: Gender -->
+        <div class="chart-container">
+            <h3>2. What is your gender?</h3>
+            <canvas id="genderChart"></canvas>
+        </div>
+
+        <!-- Question 3: Impact of Minimum Wage -->
+        <div class="chart-container">
+            <h3>3. How would an increase in the minimum wage impact the economy?</h3>
+            <canvas id="wageImpactChart"></canvas>
+        </div>
+
+        <!-- Question 4: Fair Minimum Wage -->
+        <div class="chart-container">
+            <h3>4. What would you consider a fair minimum wage?</h3>
+            <canvas id="fairWageChart"></canvas>
+        </div>
+
+        <!-- Question 5: Barriers to Salary Increase -->
+        <div class="chart-container">
+            <h3>5. What are the main barriers preventing salary increases?</h3>
+            <canvas id="salaryBarriersChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Age Group Chart (Pie)
+        new Chart(document.getElementById('ageGroupChart'), {
+            type: 'pie',
+            data: {
+                labels: ['Under 18', '18-30', '31-50', '51-70'],
+                datasets: [{
+                    data: [10, 71, 12, 6],
+                    backgroundColor: ['#333', '#666', '#999', '#ccc']
+                }]
+            }
+        });
+
+        // Gender Chart (Pie)
+        new Chart(document.getElementById('genderChart'), {
+            type: 'pie',
+            data: {
+                labels: ['Female', 'Male', 'Prefer not to say'],
+                datasets: [{
+                    data: [58, 40, 2],
+                    backgroundColor: ['#444', '#888', '#bbb']
+                }]
+            }
+        });
+
+        // Minimum Wage Impact Chart (Pie)
+        new Chart(document.getElementById('wageImpactChart'), {
+            type: 'pie',
+            data: {
+                labels: ['Higher inflation & job losses', 'Boost consumer spending', 'Minimal impact', 'None of the above'],
+                datasets: [{
+                    data: [54, 39, 5, 2],
+                    backgroundColor: ['#222', '#555', '#777', '#aaa']
+                }]
+            }
+        });
+
+        // Fair Minimum Wage Chart (Pie)
+        new Chart(document.getElementById('fairWageChart'), {
+            type: 'pie',
+            data: {
+                labels: ['<2,500 BWP', '2,500-3,500 BWP', '3,500-5,000 BWP', '>5,000 BWP'],
+                datasets: [{
+                    data: [16, 57, 23, 4],
+                    backgroundColor: ['#111', '#444', '#777', '#bbb']
+                }]
+            }
+        });
+
+        // Salary Barriers Chart (Bar)
+        new Chart(document.getElementById('salaryBarriersChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Limited Growth', 'Unemployment', 'Employer Resistance', 'Budget Constraints', 'Lack of Advocacy'],
+                datasets: [{
+                    data: [69, 19, 19, 72, 21],
+                    backgroundColor: ['#222', '#444', '#666', '#888', '#aaa']
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
+{% endblock %}

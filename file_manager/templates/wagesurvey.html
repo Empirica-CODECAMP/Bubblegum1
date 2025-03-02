@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimum Wage and Salary Policies Survey</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            color: #333;
+        }
+
+
+        /* Back Button Styles */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #0056b3;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #003366;
+        }
+
+
+        form {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fafafa;
+            border-radius: 8px;
+        }
+
+        .question label {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .options {
+            margin-left: 20px;
+        }
+
+        .options input {
+            margin-right: 10px;
+            accent-color: #007bff; /* Blue color for radio buttons */
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-top: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .options input:hover {
+            background-color: #f0f0f0;
+        }
+
+        .question:hover {
+            background-color: #f0f9ff;
+        }
+
+        /* Add media query for responsiveness */
+        @media (max-width: 768px) {
+            form {
+                width: 90%;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Back Button -->
+    <a href="{% url 'dashboard' %}" class="back-button">Back to Dashboard</a>
+
+
+    <h1>Questionnaire on Minimum Wage and Salary Policies in Botswana</h1>
+    <form action="#" method="post">
+        <div class="question">
+            <label>1. What is your age group?</label>
+            <div class="options">
+                <input type="radio" name="age" value="under18"> Under 18<br>
+                <input type="radio" name="age" value="18-24"> 18-24<br>
+                <input type="radio" name="age" value="25-34"> 25-34<br>
+                <input type="radio" name="age" value="35-44"> 35-44<br>
+                <input type="radio" name="age" value="45-54"> 45-54<br>
+                <input type="radio" name="age" value="55AndAbove"> 55 and above<br>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>2. What is your gender?</label>
+            <div class="options">
+                <input type="radio" name="gender" value="male"> Male<br>
+                <input type="radio" name="gender" value="female"> Female<br>
+                <input type="radio" name="gender" value="preferNotToSay"> Prefer not to say<br>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>3. How do you think an increase in the minimum wage would impact the economy of Botswana?</label>
+            <div class="options">
+                <input type="radio" name="economicImpact" value="boostSpending"> It would boost consumer spending and improve living standards.<br>
+                <input type="radio" name="economicImpact" value="inflationJobLosses"> It could lead to higher inflation and job losses.<br>
+                <input type="radio" name="economicImpact" value="minimalImpact"> It would have minimal impact on the economy.<br>
+                <input type="radio" name="economicImpact" value="allOfAbove"> All of the above<br>
+                <input type="radio" name="economicImpact" value="other"> Other<br>
+                <textarea name="economicImpactOther" placeholder="Please specify"></textarea>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>4. What would you consider a fair minimum wage for workers in Botswana?</label>
+            <div class="options">
+                <input type="radio" name="fairWage" value="lessThan2500"> Less than 2,500 BWP/month<br>
+                <input type="radio" name="fairWage" value="2500-3500"> 2,500 - 3,500 BWP/month<br>
+                <input type="radio" name="fairWage" value="3500-5000"> 3,500 - 5,000 BWP/month<br>
+                <input type="radio" name="fairWage" value="moreThan5000"> More than 5,000 BWP/month<br>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>5. What do you think are the main barriers preventing salary increases for workers in Botswana? (Select up to two)</label>
+            <div class="options">
+                <input type="checkbox" name="barriers" value="limitedGrowth"> Limited economic growth<br>
+                <input type="checkbox" name="barriers" value="highUnemployment"> High unemployment rates<br>
+                <input type="checkbox" name="barriers" value="employerResistance"> Resistance from employers<br>
+                <input type="checkbox" name="barriers" value="budgetConstraints"> Government budget constraints<br>
+                <input type="checkbox" name="barriers" value="lackOfAdvocacy"> Lack of advocacy for workers’ rights<br>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>6. Do you think companies in Botswana will be able to afford a minimum wage of 4,000 BWP/month?</label>
+            <div class="options">
+                <input type="radio" name="affordability" value="yes"> Yes<br>
+                <input type="radio" name="affordability" value="no"> No<br>
+                <input type="radio" name="affordability" value="notSure"> Not sure<br>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>7. Do you think people would be satisfied with a minimum wage of 4,000 BWP/month, or would they continue to ask for increases?</label>
+            <div class="options">
+                <input type="radio" name="satisfaction" value="satisfied"> They would be satisfied.<br>
+                <input type="radio" name="satisfaction" value="askForIncreases"> They would continue to ask for increases.<br>
+                <input type="radio" name="satisfaction" value="notSure"> Not sure<br>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>8. How do you think the minimum wage should be implemented?</label>
+            <div class="options">
+                <input type="radio" name="implementation" value="oneTime"> As a one-time increase<br>
+                <input type="radio" name="implementation" value="5Years"> Gradually over 5 years<br>
+                <input type="radio" name="implementation" value="10Years"> Gradually over 10 years<br>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>9. Would you support a minimum wage policy tied to worker productivity or skills?</label>
+            <div class="options">
+                <input type="radio" name="productivityTied" value="yes"> Yes<br>
+                <input type="radio" name="productivityTied" value="no"> No<br>
+                <input type="radio" name="productivityTied" value="notSure"> Not sure<br>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>10. Do you believe the current minimum wage adequately accounts for dependents or family size?</label>
+            <div class="options">
+                <input type="radio" name="dependents" value="yes"> Yes<br>
+                <input type="radio" name="dependents" value="no"> No<br>
+                <input type="radio" name="dependents" value="notSure"> Not sure<br>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>11. Do you think employers in Botswana comply with minimum wage regulations?</label>
+            <div class="options">
+                <input type="radio" name="compliance" value="mostComply"> Most employers comply.<br>
+                <input type="radio" name="compliance" value="someComply"> Some employers comply, while others do not.<br>
+                <input type="radio" name="compliance" value="fewComply"> Few employers comply.<br>
+                <input type="radio" name="compliance" value="notSure"> Not sure<br>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>12. Do you think the minimum wage should vary based on geographic location (e.g., urban vs. rural areas)?</label>
+            <div class="options">
+                <input type="radio" name="geographicVariation" value="yes"> Yes<br>
+                <input type="radio" name="geographicVariation" value="no"> No<br>
+                <input type="radio" name="geographicVariation" value="notSure"> Not sure<br>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>13. How does the current minimum wage affect your standard of living?</label>
+            <div class="options">
+                <input type="radio" name="standardOfLiving" value="comfortable"> I can cover all basic needs comfortably.<br>
+                <input type="radio" name="standardOfLiving" value="struggle"> I can cover some basic needs but struggle with others.<br>
+                <input type="radio" name="standardOfLiving" value="cannotCover"> I cannot cover my basic needs.<br>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>14. Which sector do you believe is most affected by minimum wage policies in Botswana?</label>
+            <div class="options">
+                <input type="radio" name="sector" value="agriculture"> Agriculture<br>
+                <input type="radio" name="sector" value="retail"> Retail and services<br>
+                <input type="radio" name="sector" value="manufacturing"> Manufacturing<br>
+                <input type="radio" name="sector" value="domesticWork"> Domestic work<br>
+                <input type="radio" name="sector" value="other"> Other (please specify)<br>
+                <textarea name="sectorOther" placeholder="Please specify"></textarea>
+            </div>
+        </div>
+
+        <div class="question">
+            <label>15. Should the minimum wage include additional benefits such as funeral cover and medical insurance?</label>
+            <div class="options">
+                <input type="radio" name="additionalBenefits" value="yes"> Yes<br>
+                <input type="radio" name="additionalBenefits" value="no"> No<br>
+                <input type="radio" name="additionalBenefits" value="notSure"> Not sure<br>
+            </div>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

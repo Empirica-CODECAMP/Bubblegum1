@@ -1,0 +1,153 @@
+{% extends 'base2.html' %}
+
+{% block title %}Alcohol Consumption - Bubblegum1{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alcohol Consumption by Country</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #121212;
+            color: #E0E0E0;
+            text-align: center;
+        }
+        h1 {
+            color: #ffffff;
+        }
+        .chart-container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: #1E1E1E;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: #1E1E1E;
+            border: 1px solid #444;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #444;
+        }
+        th {
+            background-color: #333;
+            color: #E0E0E0;
+        }
+        tr:nth-child(even) {
+            background-color: #2A2A2A;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Alcohol Consumption and Population by Country</h1>
+
+    <!-- Chart Container -->
+    <div class="chart-container">
+        <canvas id="alcoholChart"></canvas>
+    </div>
+
+    <!-- Data Table -->
+    <h2>Alcohol Consumption Data Table</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Country</th>
+                <th>Alcohol Consumption (Liters per Capita)</th>
+                <th>Population (Millions)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in data %}
+            <tr>
+                <td>{{ entry.country }}</td>
+                <td>{{ entry.alcohol_consumption }}</td>
+                <td>{{ entry.population }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        const data = {
+            labels: [
+                {% for entry in data %}
+                    "{{ entry.country }}"{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            ],
+            datasets: [
+                {
+                    label: 'Alcohol Consumption (Liters per Capita)',
+                    data: [
+                        {% for entry in data %}
+                            {{ entry.alcohol_consumption }}{% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                    ],
+                    backgroundColor: 'rgba(200, 200, 200, 0.2)',
+                    borderColor: 'rgba(200, 200, 200, 1)',
+                    borderWidth: 2
+                },
+                {
+                    label: 'Population (Millions)',
+                    data: [
+                        {% for entry in data %}
+                            {{ entry.population }}{% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                    ],
+                    backgroundColor: 'rgba(150, 150, 150, 0.2)',
+                    borderColor: 'rgba(150, 150, 150, 1)',
+                    borderWidth: 2
+                }
+            ]
+        };
+
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: '#444'
+                        },
+                        ticks: {
+                            color: '#E0E0E0'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: '#444'
+                        },
+                        ticks: {
+                            color: '#E0E0E0'
+                        }
+                    }
+                }
+            }
+        };
+
+        var alcoholChart = new Chart(
+            document.getElementById('alcoholChart'),
+            config
+        );
+    </script>
+
+</body>
+</html>
+{% endblock  %}

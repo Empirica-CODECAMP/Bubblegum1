@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Index Data</title>
+    <style>
+        /* Monochrome Theme */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1e1e1e; /* Dark gray */
+            color: #fff; /* White text */
+        }
+
+        .container {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ccc; /* Light gray */
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            overflow-x: auto; /* Scroll on small screens */
+            padding: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #2b2b2b; /* Slightly lighter gray */
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #444; /* Darker border */
+        }
+
+        th {
+            background: #000; /* Black header */
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background: #333; /* Dark gray for alternating rows */
+        }
+
+        tr:hover {
+            background: #444; /* Lighter gray on hover */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            th, td {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Health Index Raw Data</h1>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Nurses</th>
+                        <th>Doctors</th>
+                        <th>Hospital Beds</th>
+                        <th>Clinics</th>
+                        <th>Hospitals</th>
+                        <th>Mobile Clinics</th>
+                        <th>Health Posts</th>
+                        <th>Infant Mortality</th>
+                        <th>Life Expectancy</th>
+                        <th>TB Incidence</th>
+                        <th>Outpatient Visits</th>
+                        <th>Maternal Mortality</th>
+                        <th>Malaria Incidence</th>
+                        <th>Inpatient Admissions</th>
+                        <th>Per Capita Expenditure</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                    <tr>
+                        <td>{{ row.year }}</td>
+                        <td>{{ row.no_nurses }}</td>
+                        <td>{{ row.no_doctors }}</td>
+                        <td>{{ row.hospital_beds }}</td>
+                        <td>{{ row.no_clinics }}</td>
+                        <td>{{ row.no_hospitals }}</td>
+                        <td>{{ row.no_mobile_clinics }}</td>
+                        <td>{{ row.no_health_posts }}</td>
+                        <td>{{ row.infant_mortality }}</td>
+                        <td>{{ row.life_expectancy }}</td>
+                        <td>{{ row.tb_incidence }}</td>
+                        <td>{{ row.outpatient_visits }}</td>
+                        <td>{{ row.maternal_mortality }}</td>
+                        <td>{{ row.malaria_incidence }}</td>
+                        <td>{{ row.inpatient_admissions }}</td>
+                        <td>${{ row.per_capita_expenditure }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
